@@ -65,13 +65,12 @@ void FindAimbotTarget(float myX, float myY, int myID, uintptr_t entityList,
                     insideCone = false;
             }
 
+            // ----- بخش Visibility Check (همیشه اجرا می‌شود، شرط فریز حذف شد) -----
             bool isVis = false;
             float finalAimX = predictedX;
             float finalAimY = predictedY;
 
-            if (aimbotMode == 0 && isFreeze != 0 && !triggerBotShouldShoot) {
-                isVis = true;
-            } else if (IsVisible(myX, myY, predictedX, predictedY, mapW, mapH, tilesBase)) {
+            if (IsVisible(myX, myY, predictedX, predictedY, mapW, mapH, tilesBase)) {
                 isVis = true;
             } else if (edgeScanEnabled) {
                 int points = static_cast<int>(edgeScanPoints);

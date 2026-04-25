@@ -1,5 +1,8 @@
 #pragma once
 #define PI 3.14159265359f
+
+//Entiti Offsets >
+
 #define ENTITY_SIZE 0x3738
 #define OFF_POS_X       0x1E8
 #define OFF_POS_Y       0x1EC
@@ -14,3 +17,5 @@
 #define OFF_HOOKED_PLAYER 0x1D4
 #define OFF_HOOK_HIT_TYPE 0x214
 #define OFF_IS_SOLO       0x310
+
+//Local Player Offsets

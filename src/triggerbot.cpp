@@ -9,6 +9,7 @@ void HandleTriggerBot(uint32_t currentTime, bool hasTarget, int currentWeapon) {
     if (currentWeapon != 4) { // اگر لیزر نیست
         if (currentTime - lastSwitchTime > 150 && currentTime - lastShootTime > 800) {
             prevWeaponID = currentWeapon;
+           
             SimulateKeyClick(SDLK_5); // دکمه 5 برای لیزر
             lastSwitchTime = currentTime;
             needsWeaponSwitchBack = true;
