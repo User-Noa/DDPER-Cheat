@@ -1,5 +1,5 @@
-.vscode/
 .gitignore
+.vscode/
 cheat.so
 *.o
 *.out
