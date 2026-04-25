@@ -32,6 +32,7 @@ uint32_t lastShootTime = 0;
 uint32_t lastSwitchTime = 0;
 int prevWeaponID = -1;
 bool needsWeaponSwitchBack = false;
+bool visCheckEnabled = true;   // Visibility Check روشن باشد (پیش‌فرض)
 bool coneEnabled = false;
 float coneAngle = 60.0f;
 float coneLength = 300.0f;
@@ -210,6 +211,8 @@ extern "C" void SDL_GL_SwapWindow(SDL_Window* window) {
             ImGui::Dummy(ImVec2(0.0f, 8.0f));
             ImGui::Separator();
             ImGui::Dummy(ImVec2(0.0f, 8.0f));
+
+            CustomXCheckbox("Visibility Check", &visCheckEnabled);
 
             // Edge Scan
             CustomXCheckbox("Edge Scan (Multipoint)", &edgeScanEnabled);
