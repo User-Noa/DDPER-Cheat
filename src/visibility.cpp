@@ -3,7 +3,7 @@
 #include <cmath>
 #include <set>
 
-// لیست تایل‌های قابل عبور (هوک رد می‌شود)
+// لیست تایل‌های قابل عبور (هوک رد می‌شود) 
 static const std::set<uint8_t> PASSABLE_TILES = {
     0x00,   // Air
     0x09,   // Void
