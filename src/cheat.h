@@ -62,7 +62,7 @@ extern int espHotkey;
 extern int waitingForKey;
 extern float mouseX, mouseY;
 extern bool leftMouseDown, rightMouseDown;
-extern bool visCheckEnabled;
+extern bool visCheckEnabled; //visoption
 
 struct PlayerState {
     float lastX = 0; float lastY = 0; uint32_t lastMoveTime = 0;
