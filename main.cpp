@@ -96,30 +96,30 @@ extern "C" void SDL_GL_SwapWindow(SDL_Window* window) {
 
     if (moduleBase) {
         int myID = -1;
-        uintptr_t id_base = ReadMem<uintptr_t>(moduleBase + 0x1A88);
+        uintptr_t id_base = ReadMem<uintptr_t>(moduleBase + OFF_MODULE_ID_CHAIN);
         if (id_base) {
-            uintptr_t id_off = ReadMem<uintptr_t>(id_base + 0x1734);
-            if (id_off) myID = ReadMem<int>(id_off + 0x6808);
+            uintptr_t id_off = ReadMem<uintptr_t>(id_base + OFF_ID_CHAIN_PTR1);
+            if (id_off) myID = ReadMem<int>(id_off + OFF_ID_CHAIN_LOCAL_ID);
         }
 
-        uintptr_t ent_base = ReadMem<uintptr_t>(moduleBase + 0x1AB0);
+        uintptr_t ent_base = ReadMem<uintptr_t>(moduleBase + OFF_MODULE_ENTITY_CHAIN);
         uintptr_t entityList = 0;
         if (ent_base) {
-            uintptr_t ent_off = ReadMem<uintptr_t>(ent_base + 0xAD2C);
-            if (ent_off) entityList = ReadMem<uintptr_t>(ent_off + 0xD7C8);
+            uintptr_t ent_off = ReadMem<uintptr_t>(ent_base + OFF_ENTITY_CHAIN_PTR1);
+            if (ent_off) entityList = ReadMem<uintptr_t>(ent_off + OFF_ENTITY_CHAIN_ENTITY_LIST);
         }
 
-        uintptr_t aimBaseAddr = ReadMem<uintptr_t>(moduleBase + 0x1AA0);
+        uintptr_t aimBaseAddr = ReadMem<uintptr_t>(moduleBase + OFF_MODULE_Local_BASE);
 
         int mapW = 0, mapH = 0;
         uintptr_t tilesBase = 0;
-        uintptr_t p1 = ReadMem<uintptr_t>(moduleBase + 0x1A40);
-        uintptr_t p2 = p1 ? ReadMem<uintptr_t>(p1 + 0xD98) : 0;
-        uintptr_t mapBase = p2 ? ReadMem<uintptr_t>(p2 + 0xA30) : 0;
+        uintptr_t p1 = ReadMem<uintptr_t>(moduleBase + OFF_MODULE_MAP_CHAIN);
+        uintptr_t p2 = p1 ? ReadMem<uintptr_t>(p1 + OFF_MAP_CHAIN_PTR1) : 0;
+        uintptr_t mapBase = p2 ? ReadMem<uintptr_t>(p2 + OFF_MAP_CHAIN_MAP_STRUCT) : 0;
         if (mapBase) {
-            mapW = ReadMem<int>(mapBase + 0x60);
-            mapH = ReadMem<int>(mapBase + 0x64);
-            tilesBase = ReadMem<uintptr_t>(mapBase + 0x68);
+            mapW = ReadMem<int>(mapBase + OFF_MAP_WIDTH);
+            mapH = ReadMem<int>(mapBase + OFF_MAP_HEIGHT);
+            tilesBase = ReadMem<uintptr_t>(mapBase + OFF_MAP_TILES_PTR);
         }
 
         if (myID >= 0 && entityList && aimBaseAddr) {
@@ -128,8 +128,8 @@ extern "C" void SDL_GL_SwapWindow(SDL_Window* window) {
             float myY = ReadMem<float>(localPlayerBlock + OFF_POS_Y);
             int currentWeapon = ReadMem<int>(localPlayerBlock + OFF_WEAPON);
 
-            float currentAimX = ReadMem<float>(aimBaseAddr + 0x10);
-            float currentAimY = ReadMem<float>(aimBaseAddr + 0x14);
+            float currentAimX = ReadMem<float>(aimBaseAddr + OFF_AIM_X);
+            float currentAimY = ReadMem<float>(aimBaseAddr + OFF_AIM_Y);
             float realAimAngle = atan2(currentAimY, currentAimX);
 
             uint32_t currentTime = SDL_GetTicks();
@@ -148,8 +148,8 @@ extern "C" void SDL_GL_SwapWindow(SDL_Window* window) {
 
             // اعمال هدف یا اسپین‌بات
             if (targetAquired) {
-                WriteMem<float>(aimBaseAddr + 0x10, bestX - myX);
-                WriteMem<float>(aimBaseAddr + 0x14, bestY - myY);
+                WriteMem<float>(aimBaseAddr + OFF_AIM_X, bestX - myX);
+                WriteMem<float>(aimBaseAddr + OFF_AIM_Y, bestY - myY);
 
                 HandleTriggerBot(currentTime, true, currentWeapon);
             } else {

@@ -1,6 +1,7 @@
 #include "spinbot.h"
 #include "cheat.h"
 #include "memory.h"
+#include "offsets.h"
 #include <cmath>
 
 void HandleSpinBot(uintptr_t aimBaseAddr, bool shouldSpin) {
@@ -12,6 +13,6 @@ void HandleSpinBot(uintptr_t aimBaseAddr, bool shouldSpin) {
     float sdx = 100.0f * cosf(currentSpinAngle);
     float sdy = 100.0f * sinf(currentSpinAngle);
 
-    WriteMem<float>(aimBaseAddr + 0x10, sdx);
-    WriteMem<float>(aimBaseAddr + 0x14, sdy);
+    WriteMem<float>(aimBaseAddr + OFF_AIM_X, sdx);
+    WriteMem<float>(aimBaseAddr + OFF_AIM_Y, sdy);
 }
