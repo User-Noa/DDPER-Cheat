@@ -1,7 +1,7 @@
 #pragma once
 #define PI 3.14159265359f
 
-//Entiti Offsets >
+//Entity Offsets >
 
 #define ENTITY_SIZE 0x3738
 #define OFF_POS_X       0x1E8
@@ -19,3 +19,6 @@
 #define OFF_IS_SOLO       0x310
 
 //Local Player Offsets
+
+
+//Map Offsets
