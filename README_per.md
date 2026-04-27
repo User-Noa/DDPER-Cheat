@@ -6,7 +6,7 @@
 [![English](https://img.shields.io/badge/Language-English-purple?style=for-the-badge)](README.md)
 [![Persian](https://img.shields.io/badge/Language-Persian-green?style=for-the-badge)](README_per.md)
 
-  <img src="https://img.shields.io/badge/Platform-Linux-34a0a4?style=for-the-badge&logo=linux" />
+  <img src="https://img.shields.io/badge/پلتفرم-لینوکس-34a0a4?style=for-the-badge&logo=linux" />
   <img src="https://img.shields.io/badge/Status-Undetected-success?style=for-the-badge" />
   <img src="https://img.shields.io/badge/Tested_On-Arch_Linux-1793d1?style=for-the-badge&logo=arch-linux" />
 </div>
