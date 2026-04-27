@@ -15,7 +15,7 @@
 ---
 
 > [!WARNING]  
-> **Are you on Windows?** 🛑  
+> 🛑 **Are you on Windows?**   
 > Bro, you're in the wrong place! This cheat is strictly for Linux. If you use Windows, go check out this project instead:  
 > 👉 **[DPerX for Windows](https://github.com/k-i-o/DPerX)**
 
