@@ -23,7 +23,7 @@
 
 ## 🔥 Features
 
-*   **Aimbot:** Lock onto enemies with multiple modes (Classic, Onkey , Lazer For FNG Mode). Includes velocity prediction!
+*   **Aimbot:** Lock onto enemies with multiple modes (Classic, Onkey , Lazer For FNG Mode). Includes prediction!
 *   **ESP:** See enemies position with colored lines (Purple for far, Red for close danger).
 *   **Triggerbot:** In FNG mode, it automatically switches to laser and fires :D
 *   **Spinbot:** Spin around like crazy (perfect for trolling).
