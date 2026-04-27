@@ -23,11 +23,11 @@
 
 ## 🔥 Features
 
-*   **Aimbot:** Lock onto enemies with multiple modes (Classic, Hook, Laser). Includes velocity prediction!
-*   **ESP (Wallhack):** See enemies through walls with colored lines (Purple for far, Red for close danger).
-*   **Triggerbot:** In FNG mode, it automatically switches to laser and fires D:
+*   **Aimbot:** Lock onto enemies with multiple modes (Classic, Onkey , Lazer For FNG Mode). Includes velocity prediction!
+*   **ESP:** See enemies position with colored lines (Purple for far, Red for close danger).
+*   **Triggerbot:** In FNG mode, it automatically switches to laser and fires :D
 *   **Spinbot:** Spin around like crazy (perfect for trolling).
-*   **ImGui Menu:** Press **INSERT** to toggle. A sleek dark-purple menu to customize everything.
+*   **ImGui Menu:** Press **INSERT** to toggle.
 
 ---
 
@@ -87,6 +87,3 @@ sudo LD_PRELOAD=./cheat.so ./DDPER
 > [!IMPORTANT]  
 > This cheat and the offsets provided in `offsets.h` are specifically made for **DDPER**.  
 > If you want to use this on normal **DDNet**, the logic will work, but you **MUST** update the offsets in `offsets.h` to match your DDNet version, otherwise it will crash!
-```
-
---- 
