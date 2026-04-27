@@ -8,7 +8,7 @@
 #include "triggerbot.h"
 #include "spinbot.h"
 
-// تعریف کلیه متغیرهای گلوبال
+//Global Varibles
 bool menuOpen = false;
 bool aimbotEnabled = false;
 bool espEnabled = false;
@@ -31,8 +31,10 @@ bool triggerBotEnabled = false;
 uint32_t lastShootTime = 0;
 uint32_t lastSwitchTime = 0;
 int prevWeaponID = -1;
+float savedAimX = 0.0f;
+float savedAimY = 0.0f;
 bool needsWeaponSwitchBack = false;
-bool visCheckEnabled = true;   // Visibility Check روشن باشد (پیش‌فرض)
+bool visCheckEnabled = true;
 bool coneEnabled = false;
 float coneAngle = 60.0f;
 float coneLength = 300.0f;
@@ -55,6 +57,8 @@ std::mutex eventMutex;
 std::vector<SDL_Event> eventQueue;
 bool imguiInitDone = false;
 float predictionFactor = 0.05f;
+bool changeGunEnabled = true;
+bool autoFallbackEnabled = true;
 
 typedef void (*SDL_GL_SwapWindow_t)(SDL_Window* window);
 SDL_GL_SwapWindow_t o_SDL_GL_SwapWindow = nullptr;
@@ -134,10 +138,10 @@ extern "C" void SDL_GL_SwapWindow(SDL_Window* window) {
 
             uint32_t currentTime = SDL_GetTicks();
 
-            // ESP (رسم خطوط)
+            // ESP Draw
             DrawESP(myX, myY, myID, entityList, screenW, screenH, currentTime);
 
-            // Aimbot: یافتن بهترین هدف
+            // Aimbot
             int bestTargetID = -1;
             float bestX = 0, bestY = 0;
             FindAimbotTarget(myX, myY, myID, entityList, mapW, mapH, tilesBase,
@@ -145,23 +149,23 @@ extern "C" void SDL_GL_SwapWindow(SDL_Window* window) {
                              bestTargetID, bestX, bestY);
 
             bool targetAquired = (bestTargetID != -1) && (shouldAimNow || (fngMode && triggerBotEnabled));
+            HandleTriggerBot(currentTime, targetAquired, currentWeapon, aimBaseAddr);
 
-            // اعمال هدف یا اسپین‌بات
+            // Spinbot
             if (targetAquired) {
                 WriteMem<float>(aimBaseAddr + OFF_AIM_X, bestX - myX);
                 WriteMem<float>(aimBaseAddr + OFF_AIM_Y, bestY - myY);
 
-                HandleTriggerBot(currentTime, true, currentWeapon);
             } else {
                 HandleSpinBot(aimBaseAddr, spinBotEnabled);
             }
 
-            // رسم پوشش‌های FOV
+            // FOV
             DrawFOVOverlays(screenW, screenH, realAimAngle, aimbotMode);
         }
     }
 
-    // منوی ImGui
+    // Menu
     if (imguiInitDone) {
         {
             std::lock_guard<std::mutex> lock(eventMutex);
@@ -215,7 +219,7 @@ extern "C" void SDL_GL_SwapWindow(SDL_Window* window) {
             CustomXCheckbox("Visibility Check", &visCheckEnabled);
 
             // Edge Scan
-            CustomXCheckbox("Edge Scan (Multipoint)", &edgeScanEnabled);
+            CustomXCheckbox("Edge Scan", &edgeScanEnabled);
             if (edgeScanEnabled) {
                 ImGui::Text("Scan Radius:");
                 ImGui::SetNextItemWidth(60.0f);
@@ -296,7 +300,7 @@ extern "C" void SDL_GL_SwapWindow(SDL_Window* window) {
                 CustomXCheckbox("FNG Mode", &fngMode);
                 if (fngMode) {
                     ImGui::Indent(20.0f);
-                    CustomXCheckbox("Auto Laser (Triggerbot)", &triggerBotEnabled);
+                    CustomXCheckbox("Auto Laser", &triggerBotEnabled);
                     ImGui::Unindent(20.0f);
                 }
 
@@ -318,8 +322,8 @@ extern "C" void SDL_GL_SwapWindow(SDL_Window* window) {
             ImGui::Dummy(ImVec2(0.0f, 8.0f));
             ImGui::Separator();
             ImGui::Dummy(ImVec2(0.0f, 8.0f));
-
-            CustomXCheckbox("Cone FOV (Angle limit)", &coneEnabled);
+            // Angel Limit
+            CustomXCheckbox("Cone FOV", &coneEnabled);
             if (coneEnabled) {
                 CustomXCheckbox("Show Cone FOV", &showConeFOV);
                 ImGui::SameLine(180); ImGui::ColorEdit3("##c_cone", coneColor, clrFlags);
@@ -343,7 +347,7 @@ extern "C" void SDL_GL_SwapWindow(SDL_Window* window) {
             ImGui::Separator();
             ImGui::Dummy(ImVec2(0.0f, 8.0f));
 
-            CustomXCheckbox("Spin Bot (For Fun!)", &spinBotEnabled);
+            CustomXCheckbox("Spin Bot", &spinBotEnabled);
             if (spinBotEnabled) {
                 ImGui::Text("Spin Speed:");
                 ImGui::SetNextItemWidth(60.0f);
