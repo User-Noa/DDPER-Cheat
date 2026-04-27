@@ -1,4 +1,3 @@
-// src/aimbot.h
 #pragma once
 #include <cstdint>
 

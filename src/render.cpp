@@ -1,5 +1,5 @@
 #include "render.h"
-#include "cheat.h"      // for globals like classicFOV, coneColor, etc.
+#include "cheat.h"
 #include <cmath>
 
 const char* vertexShaderSource = R"(
@@ -19,7 +19,7 @@ const char* fragmentShaderSource = R"(
     void main() { FragColor = u_color; }
 )";
 
-// تعریف اشاره‌گرهای OpenGL
+// OpenGL
 glCreateShader_t my_glCreateShader = nullptr;
 glShaderSource_t my_glShaderSource = nullptr;
 glCompileShader_t my_glCompileShader = nullptr;

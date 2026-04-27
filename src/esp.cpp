@@ -25,7 +25,6 @@ void DrawESP(float myX, float myY, int myID, uintptr_t entityList, int screenW, 
         float dy = predictedY - myY;
         float dist = std::sqrt(dx*dx + dy*dy);
 
-        // وضعیت AFK و مرگ
         if (players[i].lastMoveTime == 0)
             players[i].lastMoveTime = currentTime;
         if (std::abs(enX - players[i].lastX) > 0.1f || std::abs(enY - players[i].lastY) > 0.1f) {

@@ -1,5 +1,4 @@
 #pragma once
 #include <cstdint>
-void HandleTriggerBot(uint32_t currentTime, bool hasTarget, int currentWeapon);
 
-
+void HandleTriggerBot(uint32_t currentTime, bool hasTarget, int currentWeapon, uintptr_t aimBaseAddr);

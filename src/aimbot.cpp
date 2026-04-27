@@ -65,7 +65,6 @@ void FindAimbotTarget(float myX, float myY, int myID, uintptr_t entityList,
                     insideCone = false;
             }
 
-            // --------- بخش Visibility Check (همیشه اجرا می‌شود، شرط فریز حذف شد) ------
             bool isVis = false;
             float finalAimX = predictedX;
             float finalAimY = predictedY;

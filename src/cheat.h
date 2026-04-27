@@ -62,7 +62,11 @@ extern int espHotkey;
 extern int waitingForKey;
 extern float mouseX, mouseY;
 extern bool leftMouseDown, rightMouseDown;
-extern bool visCheckEnabled; //visoption
+extern bool visCheckEnabled;
+extern float savedAimX;
+extern float savedAimY;
+extern bool changeGunEnabled;  
+extern bool autoFallbackEnabled;  
 
 struct PlayerState {
     float lastX = 0; float lastY = 0; uint32_t lastMoveTime = 0;

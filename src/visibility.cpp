@@ -3,7 +3,6 @@
 #include <cmath>
 #include <set>
 
-// لیست تایل‌های قابل عبور (هوک رد می‌شود) 
 static const std::set<uint8_t> PASSABLE_TILES = {
     0x00,   // Air
     0x09,   // Void
@@ -22,10 +21,10 @@ static const std::set<uint8_t> PASSABLE_TILES = {
     0x14
 };
 
-extern bool visCheckEnabled;  // در cheat.h تعریف شده
+extern bool visCheckEnabled;
 
 bool IsVisible(float x1, float y1, float x2, float y2, int mapW, int mapH, uintptr_t tilesBase) {
-    if (!visCheckEnabled) return true;                     // اگر تیک خاموش باشد، همه چیز visible
+    if (!visCheckEnabled) return true;                     
     if (!tilesBase || mapW <= 0 || mapH <= 0) return true;
 
     float dx = x2 - x1;
@@ -51,7 +50,7 @@ bool IsVisible(float x1, float y1, float x2, float y2, int mapW, int mapH, uintp
         if (tx >= 0 && tx < mapW && ty >= 0 && ty < mapH) {
             uint8_t tileIndex = ReadMem<uint8_t>(tilesBase + (ty * mapW + tx) * 4);
             if (PASSABLE_TILES.find(tileIndex) == PASSABLE_TILES.end())
-                return false;   // تایل غیرقابل عبور
+                return false;
         }
     }
     return true;
