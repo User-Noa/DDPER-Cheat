@@ -2,7 +2,6 @@
 #include "cheat.h"
 #include "offsets.h"
 #include "memory.h"
-#include "input.h"
 
 void HandleTriggerBot(uint32_t currentTime, bool hasTarget, int currentWeapon, uintptr_t aimBaseAddr) {
     if (!fngMode || !triggerBotEnabled) return;
@@ -36,7 +35,8 @@ void HandleTriggerBot(uint32_t currentTime, bool hasTarget, int currentWeapon, u
     }
 
     if (currentTime - lastShootTime > 800 && currentTime - lastSwitchTime > 50) {
-        SimulateMouseLeftClick();
+        int currentShootVal = ReadMem<int>(aimBaseAddr + OFF_AIM_SHOOT);
+        WriteMem<int>(aimBaseAddr + OFF_AIM_SHOOT, currentShootVal + 2);
         lastShootTime = currentTime;
     }
 }
